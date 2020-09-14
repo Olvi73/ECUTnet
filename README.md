@@ -1,0 +1,2 @@
+# ECUT_Network_AutoLogin
+东华理工大学校园网学生端自动登录

@@ -1,9 +1,10 @@
 # ECUT_Network_AutoLogin  
 |    Star     |    Size     |
-|                  :---:                   |                   :---:                    |
-| ![GitHub Repo stars][star] | ![GitHub repo size](https://img.shields.io/github/repo-size/Olvi73/ECUT_Network_AutoLogin) | 
+|   :---:     |   :---:     |
+| ![GitHub Repo stars][star] | ![GitHub repo size][size] | 
 
 [star]: https://img.shields.io/github/stars/Olvi73/ECUT_Network_AutoLogin
+[size]: https://img.shields.io/github/repo-size/Olvi73/ECUT_Network_AutoLogin
 
 **使用方法**：导入hutool.jar，运行主程序或者直接下载release版  
 ### 一、登录  

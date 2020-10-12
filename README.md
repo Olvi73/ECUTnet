@@ -1,4 +1,5 @@
-# ECUT_Network_AutoLogin  ![Github stars](https://img.shields.io/github/stars/Olvi73/ECUT_Network_AutoLogin.svg)
+# ECUT_Network_AutoLogin  
+![Github stars](https://img.shields.io/github/stars/Olvi73/ECUT_Network_AutoLogin.svg)
 **使用方法**：导入hutool.jar，运行主程序或者直接下载release版  
 ### 一、登录  
 输入账号密码，选择对应的网络类型进行登录  

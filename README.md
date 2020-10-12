@@ -1,7 +1,7 @@
 # ECUT_Network_AutoLogin  
 |    Star     |    Size     |
 |                  :---:                   |                   :---:                    |
-| ![GitHub Repo stars](star) | ![GitHub repo size](https://img.shields.io/github/repo-size/Olvi73/ECUT_Network_AutoLogin) | 
+| ![GitHub Repo stars]([star]) | ![GitHub repo size](https://img.shields.io/github/repo-size/Olvi73/ECUT_Network_AutoLogin) | 
 
 [star]:https://img.shields.io/github/stars/Olvi73/ECUT_Network_AutoLogin
 

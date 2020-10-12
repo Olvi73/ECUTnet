@@ -1,7 +1,7 @@
 # ECUT_Network_AutoLogin  
 |    Size     |    Star     |
 |                  :---:                   |                   :---:                    |
-| ![GitHub code size in bytes](size-link) | ![Github stars](star-link) | 
+| [![GitHub code size in bytes]][ize-link] | [![Github stars]][star-link] | 
 [size-link]: https://img.shields.io/github/languages/code-size/Olvi73/ECUT_Network_AutoLogin
 [star-link]: https://img.shields.io/github/stars/Olvi73/ECUT_Network_AutoLogin.svg
 

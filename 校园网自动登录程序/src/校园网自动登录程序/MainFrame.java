@@ -166,7 +166,7 @@ public class MainFrame extends JFrame{
 	                .body();
 	        System.out.println(body);
 	        
-	        String result="({\"result\":\"1\",\"msg\":\"×¢Ïú³É¹¦\"})";
+	        String result="({\"result\":\"1\",\"msg\":\"\\u6ce8\\u9500\\u6210\\u529f\"})";
 	        
 	        if(body.equals(result))
 	        

@@ -1,3 +1,5 @@
+2020/10/23更新后无法使用，需自行修改相关代码`mainframe.java`中的第330行左右 `wlan_user_ip` `callback`
+
 # ECUT_Network_AutoLogin  
 |    Star     |    Size     |   License    |
 |   :---:     |   :---:     |   :---:      |

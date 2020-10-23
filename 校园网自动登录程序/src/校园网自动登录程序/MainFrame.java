@@ -330,8 +330,10 @@ public class MainFrame extends JFrame{
 		String c= "Portal";
         String a= "login";
         String login_method= "1";
+        String callback= "dr1004";
         String user_account=userField.getText().trim()+Ntype;
         String user_password=new String(passwordField.getPassword());
+        String wlan_user_ip= "172.22.124.151";
         
   //      System.out.println(user_account);
   //      System.out.println(user_password);
@@ -339,14 +341,16 @@ public class MainFrame extends JFrame{
         String body = HttpRequest.get("http://172.21.255.105:801/eportal/")
                 .form("c", c)
                 .form("a", a)
+                .form("callback",callback)
                 .form("login_method", login_method)
                 .form("user_account", user_account)
                 .form("user_password", user_password)
+                .form("wlan_user_ip",wlan_user_ip)
                 .execute()
                 .body();
         System.out.println(body);
         
-        String result="({\"result\":\"1\",\"msg\":\"认证成功\"})";
+        String result="dr1004({\"result\":\"1\",\"msg\":\"\\u8ba4\\u8bc1\\u6210\\u529f\"})";
         
         if(body.equals(result))
         {	 

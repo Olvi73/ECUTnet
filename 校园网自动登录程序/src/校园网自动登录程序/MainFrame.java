@@ -1,8 +1,11 @@
 package 校园网自动登录程序;
 
 
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.http.HttpRequest;
+
 import java.io.*;
+import java.util.LinkedHashSet;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionListener;//导入awt包中的监听器事件包
@@ -333,8 +336,19 @@ public class MainFrame extends JFrame{
         String callback= "dr1004";
         String user_account=userField.getText().trim()+Ntype;
         String user_password=new String(passwordField.getPassword());
-        String wlan_user_ip= "172.22.124.151";
+        String wlan_user_ip= "";
         
+        LinkedHashSet<String> ipSet=NetUtil.localIpv4s();
+    	String address="172";
+    	for (String ip : ipSet) {
+            //System.out.println(ip);
+            if(ip.indexOf(address) == 0) {
+            	wlan_user_ip = ip;
+            	System.out.println("本机ip为："+ip);
+            	
+            }
+        }
+    	
   //      System.out.println(user_account);
   //      System.out.println(user_password);
        
@@ -383,6 +397,7 @@ public class MainFrame extends JFrame{
 	}
 public static void main(String[] args) {
 	new MainFrame();
+	
   }
 }
 

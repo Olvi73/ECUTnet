@@ -2,7 +2,7 @@
 
 2020/10/27 已更新自动获取ip，打开即可使用
 
-# ECUT_Network_AutoLogin  
+# ECUTnet  
 |    Star     |    Size     |   License    |
 |   :---:     |   :---:     |   :---:      |
 | ![GitHub Repo stars][star] | ![GitHub repo size][size] | ![GitHub][license]|

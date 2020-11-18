@@ -19,7 +19,6 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = -1450498460078768368L;
 	MainFrame(){
-		
 		try {
 			init();
 			
@@ -32,8 +31,8 @@ public class MainFrame extends JFrame{
 	JLabel UserName = new JLabel("账号:"); 
 	JLabel UserPassword = new JLabel("密码:"); 
 	JLabel type=new JLabel("网络类型:");
-	JTextField userField=new JTextField(15);
-	JPasswordField passwordField=new JPasswordField(15);
+	JTextField userField=new JTextField(10);
+	JPasswordField passwordField=new JPasswordField(10);
 	final Choice choice = new Choice(); 
 
 	 JButton B_submit=new JButton("登录");
@@ -45,7 +44,8 @@ public class MainFrame extends JFrame{
 	 boolean flag=false;
 	 boolean flagAuto=false;
 	 boolean flagAutoClose=false;
-	public void init() throws IOException { 
+	public void init() throws IOException {
+
 		SetFont.InitGlobalFont(new Font("微软雅黑", Font.PLAIN, 23));
 		setLayout(null);
 		LinkedHashSet<String> ipSet=NetUtil.localIpv4s();
@@ -55,11 +55,11 @@ public class MainFrame extends JFrame{
             	IPaddr = ip;
             }
         }
-		setTitle("校园网登录   当前IP:"+IPaddr);
+		setTitle("By:Olvi73  版本:2.1  当前IP:"+IPaddr);
 		
-		setLayout(null);
-		setResizable(false);
-		this.setBounds(553,254,600,500);
+		setLayout(new FlowLayout());
+		setResizable(true);
+		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,560,184);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);  
 		
@@ -67,7 +67,7 @@ public class MainFrame extends JFrame{
 		 choice.add("中国移动"); 
 		 choice.add("中国联通"); 
 		 choice.add("中国电信"); 
-		 choice.setFont(new Font("微软雅黑", Font.PLAIN, 20));
+		 choice.setFont(new Font("微软雅黑", Font.PLAIN, 22));
 		 
 		 passwordField.setEchoChar('*');
 		
@@ -85,32 +85,45 @@ public class MainFrame extends JFrame{
 		 
 		 Container ct= getContentPane();
 		 ct.add(UserName);
-		 ct.add(UserPassword);
-		 ct.add(type);
 		 ct.add(userField);
+		 ct.add(UserPassword);
 		 ct.add(passwordField);
+		 ct.add(type);
 		 ct.add(choice);
-		 ct.add(B_submit);
-		 ct.add(B_reset);
-		 ct.add(B_logout);
 		 ct.add(RB);
 		 ct.add(Auto);
 		 ct.add(AutoClose);
+
+
+		B_submit.setPreferredSize(new Dimension(130, 45));
+		B_logout.setPreferredSize(new Dimension(130, 45));
+		 ct.add(B_submit);
+		JButton Bt_gap=new JButton(" ");
+		Bt_gap.setContentAreaFilled(false);
+		Bt_gap.setBorderPainted(false);
+		Bt_gap.setEnabled(false);
+		ct.add(Bt_gap);
+
+		 ct.add(B_logout);
+		 ct.add(Bt_gap);
+		 ct.add(B_reset);
+
+
 		 
 		 
-		 UserName.setBounds(150, 100, 70, 25);
-		 userField.setBounds(230, 100, 160, 30);
-		 UserPassword.setBounds(150, 145, 70, 25);
-		 passwordField.setBounds(230, 145, 160, 30);
-		 RB.setBounds(410,140,180,35);
-		 Auto.setBounds(410,190,180,35);
-		 AutoClose.setBounds(410,240,180,35);
-		 
-		 type.setBounds(110, 190, 100, 25);
-		 choice.setBounds(230, 190, 120, 25);
-		 B_logout.setBounds(100, 300,100,40);
-		 B_reset.setBounds(230, 300, 100, 40);
-		 B_submit.setBounds(370, 300, 100, 40);
+//		 UserName.setBounds(150, 100, 70, 25);
+//		 userField.setBounds(230, 100, 160, 30);
+//		 UserPassword.setBounds(150, 145, 70, 25);
+//		 passwordField.setBounds(230, 145, 160, 30);
+//		 RB.setBounds(410,140,180,35);
+//		 Auto.setBounds(410,190,180,35);
+//		 AutoClose.setBounds(410,240,180,35);
+//
+//		 type.setBounds(110, 190, 100, 25);
+//		 choice.setBounds(230, 190, 120, 25);
+//		 B_logout.setBounds(100, 300,100,40);
+//		 B_reset.setBounds(230, 300, 100, 40);
+//		 B_submit.setBounds(370, 300, 100, 40);
 		 
 		 ImageIcon icon=new ImageIcon(MainFrame.class.getResource("/image/icon.png"));
 		 this.setIconImage(icon.getImage());
@@ -195,11 +208,7 @@ public class MainFrame extends JFrame{
 	        
 				 else
 				 {
-					 if(body.substring(2,body.length()-2).replace("\"","").equals("result:0,msg:\\u6ce8\\u9500\\u5931\\u8d25"))
-						 JOptionPane.showMessageDialog(null, "账号可能已在其他设备登录","警告",JOptionPane.WARNING_MESSAGE );
-					 else
 					 JOptionPane.showMessageDialog(null, "注销失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
-					 
 				 }
 			}
 		});
@@ -423,6 +432,7 @@ public class MainFrame extends JFrame{
 		 }
 	}
 public static void main(String[] args) {
+
 	new MainFrame();
   }
 }

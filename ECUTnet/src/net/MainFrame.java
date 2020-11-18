@@ -22,12 +22,13 @@ public class MainFrame extends JFrame{
 		
 		try {
 			init();
+			
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 	}
-	
+
 	JLabel UserName = new JLabel("账号:"); 
 	JLabel UserPassword = new JLabel("密码:"); 
 	JLabel type=new JLabel("网络类型:");
@@ -47,7 +48,14 @@ public class MainFrame extends JFrame{
 	public void init() throws IOException { 
 		SetFont.InitGlobalFont(new Font("微软雅黑", Font.PLAIN, 23));
 		setLayout(null);
-		setTitle("校园网登录");
+		LinkedHashSet<String> ipSet=NetUtil.localIpv4s();
+    	String IPaddr="";
+    	for (String ip : ipSet) {
+            if(ip.indexOf("172") == 0) {
+            	IPaddr = ip;
+            }
+        }
+		setTitle("校园网登录   当前IP:"+IPaddr);
 		
 		setLayout(null);
 		setResizable(false);
@@ -157,12 +165,10 @@ public class MainFrame extends JFrame{
 	        String user_password="123";
 	        
 	        LinkedHashSet<String> ipSet=NetUtil.localIpv4s();
-	    	String address="172";
 	    	for (String ip : ipSet) {
-	            if(ip.indexOf(address) == 0) {
+	            if(ip.indexOf("172") == 0) {
 	            	wlan_user_ip = ip;
 	            	System.out.println("本机ip为："+ip);
-	            	
 	            }
 	        }
 	        
@@ -188,7 +194,13 @@ public class MainFrame extends JFrame{
 				 JOptionPane.showMessageDialog(null,"注销成功","成功",JOptionPane.INFORMATION_MESSAGE);	
 	        
 				 else
-				 JOptionPane.showMessageDialog(null, "注销失败","失败",JOptionPane.WARNING_MESSAGE );
+				 {
+					 if(body.substring(2,body.length()-2).replace("\"","").equals("result:0,msg:\\u6ce8\\u9500\\u5931\\u8d25"))
+						 JOptionPane.showMessageDialog(null, "账号可能已在其他设备登录","警告",JOptionPane.WARNING_MESSAGE );
+					 else
+					 JOptionPane.showMessageDialog(null, "注销失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
+					 
+				 }
 			}
 		});
 	 RB.addActionListener(new ActionListener() {//对确定按钮添加监听事件
@@ -351,10 +363,8 @@ public class MainFrame extends JFrame{
         String wlan_user_ip= "";
         
         LinkedHashSet<String> ipSet=NetUtil.localIpv4s();
-    	String address="172";
     	for (String ip : ipSet) {
-            //System.out.println(ip);
-            if(ip.indexOf(address) == 0) {
+            if(ip.indexOf("172") == 0) {
             	wlan_user_ip = ip;
             	System.out.println("本机ip为："+ip);
             	
@@ -404,8 +414,13 @@ public class MainFrame extends JFrame{
 			 if(AutoClose.isSelected())
 			 System.exit(0);
         }
+		 else
+		 {
+			 if(body.substring(2,body.length()-2).replace("\"","").equals("result:0,msg:,ret_code:2"))
+				 JOptionPane.showMessageDialog(null, "已登录校园网","警告",JOptionPane.WARNING_MESSAGE );
 			 else
-			 JOptionPane.showMessageDialog(null, "登录失败","失败",JOptionPane.WARNING_MESSAGE );
+			 JOptionPane.showMessageDialog(null, "登录失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
+		 }
 	}
 public static void main(String[] args) {
 	new MainFrame();

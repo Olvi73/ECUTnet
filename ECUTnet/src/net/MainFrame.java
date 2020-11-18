@@ -58,8 +58,8 @@ public class MainFrame extends JFrame{
 		setTitle("By:Olvi73  版本:2.1  当前IP:"+IPaddr);
 		
 		setLayout(new FlowLayout());
-		setResizable(true);
-		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,560,184);
+		setResizable(false);
+		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,570,170);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);  
 		
@@ -94,36 +94,18 @@ public class MainFrame extends JFrame{
 		 ct.add(Auto);
 		 ct.add(AutoClose);
 
-
-		B_submit.setPreferredSize(new Dimension(130, 45));
-		B_logout.setPreferredSize(new Dimension(130, 45));
+		 B_submit.setPreferredSize(new Dimension(130, 45));
+		 B_logout.setPreferredSize(new Dimension(130, 45));
 		 ct.add(B_submit);
-		JButton Bt_gap=new JButton(" ");
-		Bt_gap.setContentAreaFilled(false);
-		Bt_gap.setBorderPainted(false);
-		Bt_gap.setEnabled(false);
-		ct.add(Bt_gap);
+		 JButton Bt_gap=new JButton(" ");
+		 Bt_gap.setContentAreaFilled(false);
+		 Bt_gap.setBorderPainted(false);
+		 Bt_gap.setEnabled(false);
+		 ct.add(Bt_gap);
 
 		 ct.add(B_logout);
 		 ct.add(Bt_gap);
 		 ct.add(B_reset);
-
-
-		 
-		 
-//		 UserName.setBounds(150, 100, 70, 25);
-//		 userField.setBounds(230, 100, 160, 30);
-//		 UserPassword.setBounds(150, 145, 70, 25);
-//		 passwordField.setBounds(230, 145, 160, 30);
-//		 RB.setBounds(410,140,180,35);
-//		 Auto.setBounds(410,190,180,35);
-//		 AutoClose.setBounds(410,240,180,35);
-//
-//		 type.setBounds(110, 190, 100, 25);
-//		 choice.setBounds(230, 190, 120, 25);
-//		 B_logout.setBounds(100, 300,100,40);
-//		 B_reset.setBounds(230, 300, 100, 40);
-//		 B_submit.setBounds(370, 300, 100, 40);
 		 
 		 ImageIcon icon=new ImageIcon(MainFrame.class.getResource("/image/icon.png"));
 		 this.setIconImage(icon.getImage());
@@ -132,8 +114,6 @@ public class MainFrame extends JFrame{
 		{
 			Login();
 		}
-
-		 
 		 
 	B_reset.addActionListener(new ActionListener() {//对重置按钮添加监听事件
 				@Override
@@ -167,7 +147,6 @@ public class MainFrame extends JFrame{
 	 B_logout.addActionListener(new ActionListener() {//对确定按钮添加监听事件
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
 			
 	        String c= "Portal";
 	        String a2= "logout";
@@ -230,10 +209,8 @@ public class MainFrame extends JFrame{
 			 }
 			}
 		});
-		
-		  
-}
 
+}
 	private void canclePwd() throws IOException{
 		
 		FileWriter fw = new FileWriter("users.txt");
@@ -302,9 +279,6 @@ public class MainFrame extends JFrame{
 			{	
 				choice.select("中国电信");
 			}
-			
-			
-			
 		}
 		buf.close();
 		if(flag!=false)
@@ -432,7 +406,6 @@ public class MainFrame extends JFrame{
 		 }
 	}
 public static void main(String[] args) {
-
 	new MainFrame();
   }
 }

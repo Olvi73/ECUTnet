@@ -55,7 +55,7 @@ public class MainFrame extends JFrame{
             	IPaddr = ip;
             }
         }
-		setTitle("By:Olvi73  版本:2.1  当前IP:"+IPaddr);
+		setTitle("By:Olvi73  版本:2.2  当前IP:"+IPaddr);
 		
 		setLayout(new FlowLayout());
 		setResizable(false);

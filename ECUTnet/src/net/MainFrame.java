@@ -150,10 +150,21 @@ public class MainFrame extends JFrame{
 			
 	        String c= "Portal";
 	        String a2= "logout";
+	        String wlan_user_ip= "";
 	        
 	        String login_method= "1";
 	        String user_account="drcom";
 	        String user_password="123";
+	        
+	        LinkedHashSet<String> ipSet=NetUtil.localIpv4s();
+	    	String address="172";
+	    	for (String ip : ipSet) {
+	            if(ip.indexOf(address) == 0) {
+	            	wlan_user_ip = ip;
+	            	System.out.println("±¾»úipÎª£º"+ip);
+	            	
+	            }
+	        }
 	        
 	        System.out.println(user_account);
 	        System.out.println(user_password);
@@ -161,6 +172,7 @@ public class MainFrame extends JFrame{
 	        String body = HttpRequest.get("http://172.21.255.105:801/eportal/")
 	                .form("c", c)
 	                .form("a", a2)
+	                .form("wlan_user_ip",wlan_user_ip)
 	                .form("login_method", login_method)
 	                .form("user_account", user_account)
 	                .form("user_password", user_password)
@@ -333,7 +345,7 @@ public class MainFrame extends JFrame{
 		String c= "Portal";
         String a= "login";
         String login_method= "1";
-        String callback= "dr1004";
+//        String callback= "dr1004";
         String user_account=userField.getText().trim()+Ntype;
         String user_password=new String(passwordField.getPassword());
         String wlan_user_ip= "";
@@ -355,7 +367,7 @@ public class MainFrame extends JFrame{
         String body = HttpRequest.get("http://172.21.255.105:801/eportal/")
                 .form("c", c)
                 .form("a", a)
-                .form("callback",callback)
+//                .form("callback",callback)
                 .form("login_method", login_method)
                 .form("user_account", user_account)
                 .form("user_password", user_password)
@@ -364,7 +376,7 @@ public class MainFrame extends JFrame{
                 .body();
         System.out.println(body);
         
-        String result="dr1004({\"result\":\"1\",\"msg\":\"\\u8ba4\\u8bc1\\u6210\\u529f\"})";
+        String result="({\"result\":\"1\",\"msg\":\"\\u8ba4\\u8bc1\\u6210\\u529f\"})";
         
         if(body.equals(result))
         {	 
@@ -397,7 +409,6 @@ public class MainFrame extends JFrame{
 	}
 public static void main(String[] args) {
 	new MainFrame();
-	
   }
 }
 

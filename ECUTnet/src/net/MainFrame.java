@@ -2,8 +2,8 @@ package net;
 
 
 import cn.hutool.core.net.NetUtil;
+import cn.hutool.core.text.UnicodeUtil;
 import cn.hutool.http.HttpRequest;
-
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
@@ -42,7 +42,6 @@ public class MainFrame extends JFrame{
 		try {
 			init();
 			
-			
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -70,7 +69,6 @@ public class MainFrame extends JFrame{
 	 boolean flagAuto=false;
 	 boolean flagAutoClose=false;
 
-
 	public void init() throws IOException {
 
 		SetFont.InitGlobalFont(new Font("微软雅黑", Font.PLAIN, 23));
@@ -82,12 +80,13 @@ public class MainFrame extends JFrame{
             	IPaddr = ip;
             }
         }
+    	
     	if(IPaddr.equals(""))
-    		IPaddr="获取ip地址失败将无法登陆";
+    		IPaddr="获取ip地址失败将无法登录";
 		setTitle("By:Olvi73  版本:v2.2  当前IP:"+IPaddr);
 		
 		setLayout(new FlowLayout());
-		setResizable(false);
+		setResizable(true);
 		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,593,180);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -205,6 +204,7 @@ public class MainFrame extends JFrame{
 	            	System.out.println("本机ip为："+ip);
 	            }
 	        }
+	    	
 	        
 	        System.out.println(user_account);
 	        System.out.println(user_password);
@@ -229,11 +229,13 @@ public class MainFrame extends JFrame{
 	        
 				 else
 				 {
-					 JOptionPane.showMessageDialog(null, "注销失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
+					 body=body.substring(2,body.length()-2).replace("\"","");
+					 body=UnicodeUtil.toString(body);
+					 JOptionPane.showMessageDialog(null, "注销失败\n"+"错误信息:"+body,"失败",JOptionPane.ERROR_MESSAGE );
 					 try {
 							FileWriter fw = new FileWriter("error.txt",true);
 							SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-							fw.write(df.format(new Date())+"      注销失败  错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
+							fw.write(df.format(new Date())+"      注销失败  错误信息:  "+body);
 							fw.write("\r\n");
 							fw.close();
 						} catch (IOException e) {
@@ -456,6 +458,7 @@ public class MainFrame extends JFrame{
 		 else
 		 {
 			 body=body.substring(2,body.length()-2).replace("\"","");
+			 body=UnicodeUtil.toString(body);
 			 if(body.equals("result:0,msg:,ret_code:2"))
 			 {
 				 JOptionPane.showMessageDialog(null, "常用错误类型:\n当前网络已登录账号","警告",JOptionPane.WARNING_MESSAGE );

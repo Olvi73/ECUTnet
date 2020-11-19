@@ -4,6 +4,8 @@ package net;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.http.HttpRequest;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.*;
 import java.util.LinkedHashSet;
 import java.awt.*;
@@ -11,6 +13,22 @@ import javax.swing.*;
 import java.awt.event.ActionListener;//导入awt包中的监听器事件包
 import java.awt.event.ActionEvent;//导入awt包中的ActionEvent事件包
 
+
+class MyItemListener implements ItemListener
+{
+	private ImageIcon checked=new ImageIcon(MainFrame.class.getResource("/image/checked.png"));
+	private ImageIcon unchecked=new ImageIcon(MainFrame.class.getResource("/image/unchecked.png"));
+	public void itemStateChanged(ItemEvent e)
+	{
+		JCheckBox jcb = (JCheckBox)e.getItem() ;
+		{
+			if(jcb.isSelected())
+			{
+				jcb.setIcon(checked) ;
+			}else jcb.setIcon(unchecked) ;
+		}
+	}
+};
 
 public class MainFrame extends JFrame{
 	
@@ -27,7 +45,11 @@ public class MainFrame extends JFrame{
 			e.printStackTrace();
 		}
 	}
-
+	private ImageIcon iconLogin=new ImageIcon(MainFrame.class.getResource("/image/login.png"));
+	private ImageIcon iconLogout=new ImageIcon(MainFrame.class.getResource("/image/logout.png"));
+	private ImageIcon iconReset=new ImageIcon(MainFrame.class.getResource("/image/reset.png"));
+	private ImageIcon checked=new ImageIcon(MainFrame.class.getResource("/image/checked.png"));
+	private ImageIcon unchecked=new ImageIcon(MainFrame.class.getResource("/image/unchecked.png"));
 	JLabel UserName = new JLabel("账号:"); 
 	JLabel UserPassword = new JLabel("密码:"); 
 	JLabel type=new JLabel("网络类型:");
@@ -44,6 +66,8 @@ public class MainFrame extends JFrame{
 	 boolean flag=false;
 	 boolean flagAuto=false;
 	 boolean flagAutoClose=false;
+
+
 	public void init() throws IOException {
 
 		SetFont.InitGlobalFont(new Font("微软雅黑", Font.PLAIN, 23));
@@ -55,13 +79,18 @@ public class MainFrame extends JFrame{
             	IPaddr = ip;
             }
         }
-		setTitle("By:Olvi73  版本:2.2  当前IP:"+IPaddr);
+		setTitle("By:Olvi73  版本:v2.2  当前IP:"+IPaddr);
 		
 		setLayout(new FlowLayout());
 		setResizable(false);
-		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,570,170);
+		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,593,175);
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);  
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
+		B_submit.setIcon(iconLogin);
+		B_logout.setIcon(iconLogout);
+		B_reset.setIcon(iconReset);
 		
 		 choice.add("校园网"); 
 		 choice.add("中国移动"); 
@@ -82,6 +111,9 @@ public class MainFrame extends JFrame{
 		 RB.setFont(new Font("微软雅黑", Font.PLAIN, 20));
 		 Auto.setFont(new Font("微软雅黑", Font.PLAIN, 20));
 		 AutoClose.setFont(new Font("微软雅黑", Font.PLAIN, 20));
+		 RB.setIcon(unchecked);
+		 Auto.setIcon(unchecked);
+		 AutoClose.setIcon(unchecked);
 		 
 		 Container ct= getContentPane();
 		 ct.add(UserName);
@@ -94,18 +126,21 @@ public class MainFrame extends JFrame{
 		 ct.add(Auto);
 		 ct.add(AutoClose);
 
+		 RB.addItemListener(new MyItemListener()) ;
+		 Auto.addItemListener(new MyItemListener()) ;
+		 AutoClose.addItemListener(new MyItemListener()) ;
 		 B_submit.setPreferredSize(new Dimension(130, 45));
 		 B_logout.setPreferredSize(new Dimension(130, 45));
-		 ct.add(B_submit);
-		 JButton Bt_gap=new JButton(" ");
-		 Bt_gap.setContentAreaFilled(false);
-		 Bt_gap.setBorderPainted(false);
-		 Bt_gap.setEnabled(false);
-		 ct.add(Bt_gap);
-
 		 ct.add(B_logout);
-		 ct.add(Bt_gap);
-		 ct.add(B_reset);
+		 ct.add(B_submit);
+
+		JButton Bt_gap=new JButton(" ");
+		Bt_gap.setContentAreaFilled(false);
+		Bt_gap.setBorderPainted(false);
+		Bt_gap.setEnabled(false);
+
+		ct.add(Bt_gap);
+		ct.add(B_reset);
 		 
 		 ImageIcon icon=new ImageIcon(MainFrame.class.getResource("/image/icon.png"));
 		 this.setIconImage(icon.getImage());
@@ -284,6 +319,7 @@ public class MainFrame extends JFrame{
 		if(flag!=false)
 		{
 			RB.setSelected(true);
+			RB.setIcon(checked);
 		}
 		if(RB.isSelected())
 		{
@@ -291,16 +327,20 @@ public class MainFrame extends JFrame{
 			if(flagAuto!=false)
 			{
 				Auto.setSelected(true);
+				Auto.setIcon(checked);
 			}
 			if(flagAutoClose!=false)
 			{
 				AutoClose.setSelected(true);
+				AutoClose.setIcon(checked);
 			}
 		}
 		else
 		{
 			Auto.setEnabled(false);
+			Auto.setIcon(unchecked);
 			AutoClose.setEnabled(false);
+			AutoClose.setIcon(unchecked);
 		}
 		
 	}

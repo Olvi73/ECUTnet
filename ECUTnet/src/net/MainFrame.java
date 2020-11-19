@@ -231,7 +231,7 @@ public class MainFrame extends JFrame{
 					 try {
 							FileWriter fw = new FileWriter("error.txt",true);
 							SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-							fw.write(df.format(new Date())+"      注销错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
+							fw.write(df.format(new Date())+"      注销失败  错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
 							fw.write("\r\n");
 							fw.close();
 						} catch (IOException e) {
@@ -463,7 +463,7 @@ public class MainFrame extends JFrame{
 				 try {
 						FileWriter fw = new FileWriter("error.txt",true);
 						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-						fw.write(df.format(new Date())+"      登录错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
+						fw.write(df.format(new Date())+"      登录失败  错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
 						fw.write("\r\n");
 						fw.close();
 					} catch (IOException e) {

@@ -13,9 +13,9 @@ public class DesUtil {
   */
  public static void main(String[] args) {
 
- // System.out.println(DesUtil.getInstance("Default").getEnCodeString("hello"));
-
- // System.out.println(DesUtil.getInstance("Default").getDecodeString("0I9GRY6tw9Au2ztvdLb4Zg=="));
+//  System.out.println(DesUtil.getInstance("Default").getEnCodeString("hello"));
+//
+//  System.out.println(DesUtil.getInstance("Default").getDecodeString("0I9GRY6tw9Au2ztvdLb4Zg=="));
  }
  private SecretKey key=null;//密钥
  //定义 加密算法,可用 DES,DESede,Blowfish,AES
@@ -87,21 +87,7 @@ public class DesUtil {
   }
   return resultData;
  }
-  //二行制转字符串
- public String byte2hex(byte[] b) {
-  String hs = "";
-  String stmp = "";
-  for (int n = 0; n < b.length; n++) {
-   stmp = (java.lang.Integer.toHexString(b[n] & 0XFF));
-   if (stmp.length() == 1)
-    hs = hs + "0" + stmp;
-   else
-    hs = hs + stmp;
-   if (n < b.length - 1)
-    hs = hs + ":";
-  }
-  return hs.toUpperCase();
- }
+
  public SecretKey getKey() {
   return key;
  }

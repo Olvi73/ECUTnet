@@ -149,6 +149,7 @@ public class MainFrame extends JFrame{
 		 
 		 ImageIcon icon=new ImageIcon(MainFrame.class.getResource("/image/icon.png"));
 		 this.setIconImage(icon.getImage());
+
 		 addPassword();
 		if(Auto.isSelected())
 		{
@@ -454,17 +455,22 @@ public class MainFrame extends JFrame{
         }
 		 else
 		 {
-			 if(body.substring(2,body.length()-2).replace("\"","").equals("result:0,msg:,ret_code:2"))
+			 body=body.substring(2,body.length()-2).replace("\"","");
+			 if(body.equals("result:0,msg:,ret_code:2"))
 			 {
-				 JOptionPane.showMessageDialog(null, "当前账号可能已经登录","警告",JOptionPane.WARNING_MESSAGE );
+				 JOptionPane.showMessageDialog(null, "常用错误类型:\n当前网络已登录账号","警告",JOptionPane.WARNING_MESSAGE );
+			 }
+			 else if(body.equals("result:0,msg:dXNlcmlkIGVycm9yMQ==,ret_code:1"))
+			 {
+				 JOptionPane.showMessageDialog(null, "认证失败:\n账号或密码错误","警告",JOptionPane.WARNING_MESSAGE );
 			 }
 			 else
 			 {
-				 JOptionPane.showMessageDialog(null, "登录失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
+				 JOptionPane.showMessageDialog(null, "登录失败\n"+"错误信息:"+body,"失败",JOptionPane.ERROR_MESSAGE );
 				 try {
 						FileWriter fw = new FileWriter("error.txt",true);
 						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-						fw.write(df.format(new Date())+"      登录失败  错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
+						fw.write(df.format(new Date())+"      登录失败  错误信息:  "+body);
 						fw.write("\r\n");
 						fw.close();
 					} catch (IOException e) {

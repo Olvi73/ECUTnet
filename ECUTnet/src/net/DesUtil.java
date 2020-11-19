@@ -13,14 +13,14 @@ public class DesUtil {
   */
  public static void main(String[] args) {
 
-//  System.out.println(DesUtil.getInstance("Default").getEnCodeString("hello"));
+//  System.out.println(DesUtil.getInstance("Default").getEnCodeString("hello6546jhfksaj,;l s'"));
 //
-//  System.out.println(DesUtil.getInstance("Default").getDecodeString("0I9GRY6tw9Au2ztvdLb4Zg=="));
+//  System.out.println(DesUtil.getInstance("Default").getDecodeString("ZSLPPQFGUb9O/d6mn6x9Z6eFrYmXFjsO"));
  }
  private SecretKey key=null;//密钥
  //定义 加密算法,可用 DES,DESede,Blowfish,AES
  //不同的加密方式结果会不同
- private static String algorithm="AES";
+ private static String algorithm="DES";
  private static DesUtil desUtil=null;
  public DesUtil(){}
  public static DesUtil getInstance(String strKey){

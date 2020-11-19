@@ -41,7 +41,7 @@ public class MainFrame extends JFrame{
 	MainFrame(){
 		try {
 			init();
-			this.validate(); 	//重画窗口
+			
 			
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
@@ -154,6 +154,7 @@ public class MainFrame extends JFrame{
 		{
 			Login();
 		}
+		this.validate(); 	//重画窗口
 		 
 	B_reset.addActionListener(new ActionListener() {//对重置按钮添加监听事件
 				@Override

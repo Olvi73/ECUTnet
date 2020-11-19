@@ -7,6 +7,8 @@ import cn.hutool.http.HttpRequest;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.awt.*;
 import javax.swing.*;
@@ -39,6 +41,7 @@ public class MainFrame extends JFrame{
 	MainFrame(){
 		try {
 			init();
+			this.validate(); 	//重画窗口
 			
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
@@ -79,11 +82,13 @@ public class MainFrame extends JFrame{
             	IPaddr = ip;
             }
         }
+    	if(IPaddr.equals(""))
+    		IPaddr="获取ip地址失败将无法登陆";
 		setTitle("By:Olvi73  版本:v2.2  当前IP:"+IPaddr);
 		
 		setLayout(new FlowLayout());
 		setResizable(false);
-		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,593,175);
+		this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-280, ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-150,593,180);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -223,6 +228,16 @@ public class MainFrame extends JFrame{
 				 else
 				 {
 					 JOptionPane.showMessageDialog(null, "注销失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
+					 try {
+							FileWriter fw = new FileWriter("error.txt",true);
+							SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+							fw.write(df.format(new Date())+"      注销错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
+							fw.write("\r\n");
+							fw.close();
+						} catch (IOException e) {
+							// TODO 自动生成的 catch 块
+							e.printStackTrace();
+						}
 				 }
 			}
 		});
@@ -433,16 +448,29 @@ public class MainFrame extends JFrame{
     			}
     		}
 			 JOptionPane.showMessageDialog(null,"登录成功","成功",JOptionPane.INFORMATION_MESSAGE);	
-			 
 			 if(AutoClose.isSelected())
 			 System.exit(0);
         }
 		 else
 		 {
 			 if(body.substring(2,body.length()-2).replace("\"","").equals("result:0,msg:,ret_code:2"))
-				 JOptionPane.showMessageDialog(null, "已登录校园网","警告",JOptionPane.WARNING_MESSAGE );
+			 {
+				 JOptionPane.showMessageDialog(null, "当前账号可能已经登录","警告",JOptionPane.WARNING_MESSAGE );
+			 }
 			 else
-			 JOptionPane.showMessageDialog(null, "登录失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
+			 {
+				 JOptionPane.showMessageDialog(null, "登录失败\n"+"错误信息:"+body.substring(2,body.length()-2).replace("\"",""),"失败",JOptionPane.ERROR_MESSAGE );
+				 try {
+						FileWriter fw = new FileWriter("error.txt",true);
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+						fw.write(df.format(new Date())+"      登录错误信息:  "+body.substring(2,body.length()-2).replace("\"",""));
+						fw.write("\r\n");
+						fw.close();
+					} catch (IOException e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}
+			 }
 		 }
 	}
 public static void main(String[] args) {

@@ -4,6 +4,8 @@ package net;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.text.UnicodeUtil;
 import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
@@ -11,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.awt.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 
 
@@ -79,6 +83,19 @@ public class MainFrame extends JFrame {
                 IPaddr = ip;
             }
         }
+        if (IPaddr.equals("")) {
+            String body2 = HttpUtil.get("http://172.21.255.105/");
+            Pattern p = Pattern.compile("v4[6]*ip='(\\d|\\.)+'");
+            Matcher m = p.matcher(body2);
+            if (m.find()) {
+                IPaddr=body2.substring(m.start(),m.end());
+                IPaddr=IPaddr.replace("'","");
+                IPaddr=IPaddr.replace("v4ip=","");
+                IPaddr=IPaddr.replace("v46ip=","");
+                System.out.println(m);
+            }
+        }
+
 
         if (IPaddr.equals(""))
             IPaddr = "获取ip地址失败将无法登录";
@@ -196,7 +213,19 @@ public class MainFrame extends JFrame {
                     System.out.println("本机ip为：" + ip);
                 }
             }
-
+            
+            if (wlan_user_ip.equals("")) {
+                String body2 = HttpUtil.get("http://172.21.255.105/");
+                Pattern p = Pattern.compile("v4[6]*ip='(\\d|\\.)+'");
+                Matcher m = p.matcher(body2);
+                if (m.find()) {
+                	wlan_user_ip=body2.substring(m.start(),m.end());
+                	wlan_user_ip=wlan_user_ip.replace("'","");
+                	wlan_user_ip=wlan_user_ip.replace("v4ip=","");
+                	wlan_user_ip=wlan_user_ip.replace("v46ip=","");
+                    System.out.println(m);
+                }
+            }
 
             System.out.println(user_account);
             System.out.println(user_password);
@@ -381,6 +410,19 @@ public class MainFrame extends JFrame {
                 wlan_user_ip = ip;
                 System.out.println("本机ip为：" + ip);
 
+            }
+        }
+        
+        if (wlan_user_ip.equals("")) {
+            String body2 = HttpUtil.get("http://172.21.255.105/");
+            Pattern p = Pattern.compile("v4[6]*ip='(\\d|\\.)+'");
+            Matcher m = p.matcher(body2);
+            if (m.find()) {
+            	wlan_user_ip=body2.substring(m.start(),m.end());
+            	wlan_user_ip=wlan_user_ip.replace("'","");
+            	wlan_user_ip=wlan_user_ip.replace("v4ip=","");
+            	wlan_user_ip=wlan_user_ip.replace("v46ip=","");
+                System.out.println(m);
             }
         }
 

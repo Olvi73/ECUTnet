@@ -61,7 +61,6 @@ public class MainFrame extends JFrame {
     JTextField userField = new JTextField(10);
     JPasswordField passwordField = new JPasswordField(10);
     final Choice choice = new Choice();
-
     JButton B_submit = new JButton("登录");
     JButton B_reset = new JButton("重置");
     JButton B_logout = new JButton("注销");
@@ -71,42 +70,43 @@ public class MainFrame extends JFrame {
     boolean flag = false;
     boolean flagAuto = false;
     boolean flagAutoClose = false;
+    String IPaddr = "";
 
     public void init() throws IOException {
 
         SetFont.InitGlobalFont(new Font("微软雅黑", Font.PLAIN, 23));
         setLayout(null);
+
+        //本地获取ip
         LinkedHashSet<String> ipSet = NetUtil.localIpv4s();
-        String IPaddr = "";
         for (String ip : ipSet) {
-            if (ip.indexOf("172") == 0) {
+            if (ip.indexOf("172.22") == 0) {
                 IPaddr = ip;
             }
         }
+        //通过url源代码信息获取ip，适用于路由器下的登录
         if (IPaddr.equals("")) {
-            String body2 = HttpUtil.get("http://172.21.255.105/");
+            String body = HttpUtil.get("http://172.21.255.105/");
             Pattern p = Pattern.compile("v4[6]*ip='(\\d|\\.)+'");
-            Matcher m = p.matcher(body2);
+            Matcher m = p.matcher(body);
             if (m.find()) {
-                IPaddr=body2.substring(m.start(),m.end());
+                IPaddr=body.substring(m.start(),m.end());
                 IPaddr=IPaddr.replace("'","");
-                IPaddr=IPaddr.replace("v4ip=","");
-                IPaddr=IPaddr.replace("v46ip=","");
-                System.out.println(m);
+                IPaddr=IPaddr.replace("v4ip=",""); //未登录
+                IPaddr=IPaddr.replace("v46ip=",""); //已登录
             }
         }
 
 
         if (IPaddr.equals(""))
             IPaddr = "获取ip地址失败将无法登录";
-        setTitle("By:Olvi73  版本:v2.2  当前IP:" + IPaddr);
+        setTitle("By:Olvi73  版本:v2.3  当前IP:" + IPaddr);
 
         setLayout(new FlowLayout());
         setResizable(true);
         this.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width) / 2) - 280, ((Toolkit.getDefaultToolkit().getScreenSize().height) / 2) - 150, 593, 180);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 
         B_submit.setIcon(iconLogin);
         B_logout.setIcon(iconLogout);
@@ -206,34 +206,10 @@ public class MainFrame extends JFrame {
             String user_account = "drcom";
             String user_password = "123";
 
-            LinkedHashSet<String> ipSet1 = NetUtil.localIpv4s();
-            for (String ip : ipSet1) {
-                if (ip.indexOf("172") == 0) {
-                    wlan_user_ip = ip;
-                    System.out.println("本机ip为：" + ip);
-                }
-            }
-            
-            if (wlan_user_ip.equals("")) {
-                String body2 = HttpUtil.get("http://172.21.255.105/");
-                Pattern p = Pattern.compile("v4[6]*ip='(\\d|\\.)+'");
-                Matcher m = p.matcher(body2);
-                if (m.find()) {
-                	wlan_user_ip=body2.substring(m.start(),m.end());
-                	wlan_user_ip=wlan_user_ip.replace("'","");
-                	wlan_user_ip=wlan_user_ip.replace("v4ip=","");
-                	wlan_user_ip=wlan_user_ip.replace("v46ip=","");
-                    System.out.println(m);
-                }
-            }
-
-            System.out.println(user_account);
-            System.out.println(user_password);
-
             String body = HttpRequest.get("http://172.21.255.105:801/eportal/")
                     .form("c", c)
                     .form("a", a2)
-                    .form("wlan_user_ip", wlan_user_ip)
+                    .form("wlan_user_ip", IPaddr)
                     .form("login_method", login_method)
                     .form("user_account", user_account)
                     .form("user_password", user_password)
@@ -404,31 +380,6 @@ public class MainFrame extends JFrame {
         String user_password = new String(passwordField.getPassword());
         String wlan_user_ip = "";
 
-        LinkedHashSet<String> ipSet = NetUtil.localIpv4s();
-        for (String ip : ipSet) {
-            if (ip.indexOf("172") == 0) {
-                wlan_user_ip = ip;
-                System.out.println("本机ip为：" + ip);
-
-            }
-        }
-        
-        if (wlan_user_ip.equals("")) {
-            String body2 = HttpUtil.get("http://172.21.255.105/");
-            Pattern p = Pattern.compile("v4[6]*ip='(\\d|\\.)+'");
-            Matcher m = p.matcher(body2);
-            if (m.find()) {
-            	wlan_user_ip=body2.substring(m.start(),m.end());
-            	wlan_user_ip=wlan_user_ip.replace("'","");
-            	wlan_user_ip=wlan_user_ip.replace("v4ip=","");
-            	wlan_user_ip=wlan_user_ip.replace("v46ip=","");
-                System.out.println(m);
-            }
-        }
-
-        //      System.out.println(user_account);
-        //      System.out.println(user_password);
-
         String body = HttpRequest.get("http://172.21.255.105:801/eportal/")
                 .form("c", c)
                 .form("a", a)
@@ -436,7 +387,7 @@ public class MainFrame extends JFrame {
                 .form("login_method", login_method)
                 .form("user_account", user_account)
                 .form("user_password", user_password)
-                .form("wlan_user_ip", wlan_user_ip)
+                .form("wlan_user_ip", IPaddr)
                 .execute()
                 .body();
         System.out.println(body);
